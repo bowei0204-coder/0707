@@ -1,0 +1,25 @@
+body {
+    height: 100vh;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.九宮格 {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  /* gap: 10px; */
+}
+
+.九宮格 div {
+    border: 1px solid black;
+    height: 100px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 50px;
+}
