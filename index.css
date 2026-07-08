@@ -25,9 +25,26 @@ body {
 }
 
 .circle::before {
-    content: "O";
+    content: "";
+    width: 55px;
+    height: 55px;
+    border: 8px solid black;
+    border-radius: 50%;
+}
+
+.cross::before,
+.cross::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 80px;
+    background-color: black;
 }
 
 .cross::before {
-    content: "X";
+    transform: rotate(45deg);
+}
+
+.cross::after {
+    transform: rotate(-45deg);
 }
