@@ -48,3 +48,8 @@ body {
 .cross::after {
     transform: rotate(-45deg);
 }
+
+.display-none::before,
+.display-none::after {
+    display: none;
+}
