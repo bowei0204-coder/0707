@@ -13,7 +13,7 @@ body {
   /* gap: 10px; */
 }
 
-.九宮格 div {
+.block {
     border: 1px solid black;
     height: 100px;
 
@@ -22,6 +22,7 @@ body {
     align-items: center;
 
     font-size: 50px;
+    position: relative;
 }
 
 .circle::before {
@@ -49,7 +50,14 @@ body {
     transform: rotate(-45deg);
 }
 
-.display-none::before,
+/* .display-none::before,
 .display-none::after {
     display: none;
+} */
+
+#restart {
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
+
