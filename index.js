@@ -17,20 +17,23 @@ const Winnerpatterns = [
 ]
 
 const board = document.querySelector('.九宮格')
+const status = document.getElementById('status')
 
 function checkWinner(currentPlayer) {
     for (const pattern of Winnerpatterns) {
         const [a, b, c, d] = pattern
+
         if (
             blocks[a].classList.contains(currentPlayer) &&
             blocks[b].classList.contains(currentPlayer) &&
             blocks[c].classList.contains(currentPlayer) &&
             blocks[d].classList.contains(currentPlayer)
         ) {
-            return true
+            return pattern
         }
     }
-    return false
+
+    return null
 }
 
 function checkDraw() {
@@ -45,7 +48,6 @@ function checkDraw() {
 
     return true
 }
-    
 
 blocks.forEach(block => {
     block.addEventListener('click', () => {
@@ -62,41 +64,52 @@ blocks.forEach(block => {
 
         block.classList.add(currentPlayer)
 
-        if (checkWinner(currentPlayer)) {
-            alert(currentPlayer + ' wins!')
+        const winningPattern = checkWinner(currentPlayer)
+
+        if (winningPattern) {
+            winningPattern.forEach(index => {
+                blocks[index].classList.add('winning')
+            })
+
+            if (currentPlayer === 'cross') {
+                status.textContent = 'X wins!'
+            } else {
+                status.textContent = 'O wins!'
+            }
+
             gameOver = true
             board.classList.add('game-over')
             return
-        } 
+        }
 
         if (checkDraw()) {
-        alert('Draw!')
-        gameOver = true
-        board.classList.add('game-over')
-        return
-        }
-        
-        if (currentPlayer === 'circle') {
-            currentPlayer = 'cross'
-        } else {
-            currentPlayer = 'circle'
+            status.textContent = '平手!'
+            gameOver = true
+            board.classList.add('game-over')
+            return
         }
 
+        if (currentPlayer === 'circle') {
+            currentPlayer = 'cross'
+            status.textContent = '目前輪到: X'
+        } else {
+            currentPlayer = 'circle'
+            status.textContent = '目前輪到: O'
+        }
     })
 })
 
-// const restartButton = document.getElementById('restart')
 const restartButton = document.querySelector('#restart')
+
 restartButton.addEventListener('click', () => {
     blocks.forEach(block => {
         block.classList.remove('circle')
         block.classList.remove('cross')
+        block.classList.remove('winning')
     })
+
     currentPlayer = 'circle'
     gameOver = false
     board.classList.remove('game-over')
+    status.textContent = '目前輪到: O'
 })
-
-
-
-

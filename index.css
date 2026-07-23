@@ -61,3 +61,14 @@ body {
     left: 20px;
 }
 
+#status {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.winning {
+    background-color: yellow;
+}
+
