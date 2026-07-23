@@ -4,31 +4,48 @@ let currentPlayer = 'circle'
 let gameOver = false
 
 const Winnerpatterns = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
+    [0, 1, 2, 3],
+    [4, 5, 6, 7],
+    [8, 9, 10, 11],
+    [12, 13, 14, 15],
+    [0, 4, 8, 12],
+    [1, 5, 9, 13],
+    [2, 6, 10, 14],
+    [3, 7, 11, 15],
+    [0, 5, 10, 15],
+    [3, 6, 9, 12]
 ]
 
 const board = document.querySelector('.九宮格')
 
 function checkWinner(currentPlayer) {
     for (const pattern of Winnerpatterns) {
-        const [a, b, c] = pattern
+        const [a, b, c, d] = pattern
         if (
             blocks[a].classList.contains(currentPlayer) &&
             blocks[b].classList.contains(currentPlayer) &&
-            blocks[c].classList.contains(currentPlayer)
+            blocks[c].classList.contains(currentPlayer) &&
+            blocks[d].classList.contains(currentPlayer)
         ) {
             return true
         }
     }
     return false
 }
+
+function checkDraw() {
+    for (const block of blocks) {
+        if (
+            !block.classList.contains('circle') &&
+            !block.classList.contains('cross')
+        ) {
+            return false
+        }
+    }
+
+    return true
+}
+    
 
 blocks.forEach(block => {
     block.addEventListener('click', () => {
@@ -50,8 +67,15 @@ blocks.forEach(block => {
             gameOver = true
             board.classList.add('game-over')
             return
-        }
+        } 
 
+        if (checkDraw()) {
+        alert('Draw!')
+        gameOver = true
+        board.classList.add('game-over')
+        return
+        }
+        
         if (currentPlayer === 'circle') {
             currentPlayer = 'cross'
         } else {
